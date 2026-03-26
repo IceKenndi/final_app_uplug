@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>U-Plug Campus Map</title>
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          width: 100%;
+          font-family: Arial, sans-serif;
+          background: #dceee3;
+          overflow: hidden;
+        }
+
+        #app {
+          height: 100%;
+          width: 100%;
+          position: relative;
+        }
+
+        #map {
+          height: 100%;
+          width: 100%;
+          z-index: 1;
+        }
+
+        .floating-panel {
+          position: absolute;
+          left: 12px;
+          right: 12px;
+          bottom: 12px;
+          z-index: 1000;
+          background: rgba(255, 255, 255, 0.98);
+          border-radius: 18px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+          padding: 14px;
+          backdrop-filter: blur(10px);
+          max-height: 42%;
+          overflow-y: auto;
+        }
+
+        .panel-title {
+          font-size: 16px;
+          font-weight: 700;
+          color: #1c4b38;
+          margin-bottom: 10px;
+        }
+
+        .building-select {
+          width: 100%;
+          padding: 12px 14px;
+          border-radius: 12px;
+          border: 1px solid #d3dcd7;
+          font-size: 14px;
+          background: #f8fbf9;
+          outline: none;
+          margin-bottom: 12px;
+          box-sizing: border-box;
+        }
+
+        .preview-card {
+          border-radius: 14px;
+          overflow: hidden;
+          background: #eef5f0;
+          border: 1px solid #d7e3dc;
+          margin-bottom: 12px;
+          min-height: 130px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .preview-card img {
+          width: 100%;
+          height: 140px;
+          object-fit: cover;
+          display: none;
+        }
+
+        .preview-placeholder {
+          color: #708278;
+          font-size: 13px;
+          text-align: center;
+          padding: 20px;
+        }
+
+        .building-info {
+          display: none;
+          background: #f8fbf9;
+          border-radius: 12px;
+          padding: 12px;
+          border: 1px solid #d7e3dc;
+        }
+
+        .building-info h3 {
+          margin: 0 0 8px 0;
+          font-size: 15px;
+          color: #1c4b38;
+        }
+
+        .building-info p {
+          margin: 0;
+          font-size: 13px;
+          color: #3d4a43;
+          line-height: 1.4;
+        }
+
+        .building-label {
+          background: rgba(28, 75, 56, 0.95);
+          color: white;
+          border: none;
+          border-radius: 10px;
+          padding: 3px 8px;
+          font-size: 10px;
+          font-weight: 700;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        }
+
+        .leaflet-popup-content-wrapper {
+          border-radius: 14px;
+        }
+
+        .leaflet-popup-content {
+          margin: 12px 14px;
+          font-size: 13px;
+          line-height: 1.4;
+        }
+
+        .building-popup h3 {
+          margin: 0 0 6px 0;
+          font-size: 15px;
+          color: #1c4b38;
+        }
+
+        .building-popup p {
+          margin: 0 0 6px 0;
+          color: #3d4a43;
+        }
+
+        .building-popup small {
+          color: #6f7f75;
+        }
+
+        @media (max-width: 420px) {
+  .floating-panel {
+    left: 10px;
+    right: 10px;
+    bottom: 70px;
+    padding: 12px 12px 16px 12px;
+    max-height: 36%;
+  }
+
+  .panel-title {
+    font-size: 15px;
+  }
+}
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="map"></div>
+
+    <div class="floating-panel">
+        <div class="panel-title">Campus Buildings</div>
+
+        <select id="building-select" class="building-select">
+            <option value="">-- Choose a Building --</option>
+        </select>
+
+        <div id="building-preview" class="preview-card">
+            <img id="preview-image" src="" alt="Building Preview" />
+            <div id="preview-placeholder" class="preview-placeholder">
+                Select a building to view details
+            </div>
+        </div>
+
+        <div id="building-info" class="building-info">
+            <h3 id="info-title"></h3>
+            <p id="info-description"></p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    const map = L.map('map', {
+      minZoom: 16,
+      maxZoom: 19,
+      zoomControl: false,
+      maxBounds: [
+        [16.0440, 120.3405],
+        [16.0480, 120.3435]
+      ],
+      maxBoundsViscosity: 0.5
+    }).setView([16.0471041, 120.3425147], 17);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 19
+    }).addTo(map);
+
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    const buildings = [
+      {
+        name: "MAIN ENTRANCE GATE",
+        coords: [16.04718773263529, 120.34255015338286],
+        description: "Main Campus Entrance",
+        icon: "🚪",
+        image: "file:///android_asset/images/ENTRANCE.JPG"
+      },
+      {
+        name: "VEHICLE ENTRANCE",
+        coords: [16.046998271963485, 120.34263061965322],
+        description: "Vehicle Access and Parking Entrance",
+        icon: "🚗",
+        image: "file:///android_asset/images/ENTRANCE.JPG"
+      },
+      {
+        name: "PTC",
+        coords: [16.04710911292469, 120.34231009568006],
+        description: "Professional Training Center",
+        icon: "🎯",
+        image: "file:///android_asset/images/PTC.JPG"
+      },
+      {
+        name: "CSDL ITS",
+        coords: [16.047129734491552, 120.3422765680679],
+        description: "Computer Science and IT Services",
+        icon: "💻",
+        image: "file:///android_asset/images/CSDL.JPG"
+      },
+      {
+        name: "BASIC EDUCATION DEPARTMENT",
+        coords: [16.046669615265813, 120.34218000854449],
+        description: "Basic Education Department",
+        icon: "🏫",
+        image: "file:///android_asset/images/BSED.JPEG"
+      },
+      {
+        name: "CCJE BUILDING",
+        coords: [16.04657065821063, 120.34199723564001],
+        description: "College of Criminal Justice Education",
+        icon: "⚖️",
+        image: "file:///android_asset/images/CCJE.jpeg"
+      },
+      {
+        name: "CAHS",
+        coords: [16.046209922957026, 120.34114951278902],
+        description: "College of Home Sciences",
+        icon: "👨‍🍳",
+        image: "file:///android_asset/images/RS2.JPG"
+      },
+      {
+        name: "PHINMA GARDEN",
+        coords: [16.0471364006493, 120.3415298973686],
+        description: "PHINMA Garden and Green Space",
+        icon: "🌿",
+        image: "file:///android_asset/images/FOREST.JPG"
+      },
+      {
+        name: "ID SECTION",
+        coords: [16.047015862758048, 120.34235266448607],
+        description: "Identification and Registration Section (2nd Floor)",
+        icon: "🆔",
+        image: "file:///android_asset/images/ITS1.JPG"
+      },
+      {
+        name: "BUSINESS CENTER",
+        coords: [16.047469759188452, 120.34162229750356],
+        description: "Business and Commerce Center",
+        icon: "💼",
+        image: "file:///android_asset/images/CMA.JPG"
+      },
+      {
+        name: "TELLER",
+        coords: [16.047070052157114, 120.34193202121011],
+        description: "Teller/Cashier Services",
+        icon: "💳",
+        image: "file:///android_asset/images/REGISTRAR.JPG"
+      },
+      {
+        name: "GYM",
+        coords: [16.0464351220262, 120.34173753177558],
+        description: "Gymnasium and Sports Facilities",
+        icon: "🏋️",
+        image: "file:///android_asset/images/GYM.JPG"
+      },
+      {
+        name: "OLD STAGE",
+        coords: [16.047143919218833, 120.34120553323363],
+        description: "Campus Stage and Event Area",
+        icon: "🎤",
+        image: "file:///android_asset/images/FOREST.JPG"
+      },
+      {
+        name: "STUDENT PLAZA",
+        coords: [16.04683969276234, 120.34156592490406],
+        description: "Student Plaza and Recreation Area",
+        icon: "👥",
+        image: "file:///android_asset/images/SP.JPG"
+      },
+      {
+        name: "NORTH HALL",
+        coords: [16.047344971962104, 120.34132706608426],
+        description: "North Campus Hall",
+        icon: "🏨",
+        image: "file:///android_asset/images/NH.JPG"
+      },
+      {
+        name: "CMA",
+        coords: [16.047282364126666, 120.34174012085187],
+        description: "College of Management and Accountancy",
+        icon: "📊",
+        image: "file:///android_asset/images/CMA.JPG"
+      },
+      {
+        name: "MBA BUILDING",
+        coords: [16.046815683336725, 120.3411361017446],
+        description: "Master of Business Administration Building",
+        icon: "🎓",
+        image: "file:///android_asset/images/MBA.JPG"
+      },
+      {
+        name: "MBA HALL",
+        coords: [16.046392940118558, 120.34135201956829],
+        description: "MBA Student Hall and Facilities",
+        icon: "🏢",
+        image: "file:///android_asset/images/MBA.JPG"
+      },
+      {
+        name: "RIVERSIDE BUILDING",
+        coords: [16.046234411177977, 120.34087995078704],
+        description: "Riverside Campus Building",
+        icon: "🌳",
+        image: "file:///android_asset/images/RS1.JPG"
+      },
+      {
+        name: "Library",
+        coords: [16.04701154161978, 120.34206847265715],
+        description: "Learning resources, study areas, and computer facilities",
+        icon: "📚",
+        image: "file:///android_asset/images/FIDEL.JPG"
+      }
+    ];
+
+    const markers = {};
+    const buildingSelect = document.getElementById('building-select');
+    const previewImage = document.getElementById('preview-image');
+    const previewPlaceholder = document.getElementById('preview-placeholder');
+    const buildingInfo = document.getElementById('building-info');
+    const infoTitle = document.getElementById('info-title');
+    const infoDescription = document.getElementById('info-description');
+
+    buildings.forEach((building) => {
+      const marker = L.marker(building.coords).addTo(map);
+      markers[building.name] = marker;
+
+      marker.bindPopup(`
+        <div class="building-popup">
+          <h3>${building.icon} ${building.name}</h3>
+          <p>${building.description}</p>
+          <small>Lat: ${building.coords[0].toFixed(4)}, Lng: ${building.coords[1].toFixed(4)}</small>
+        </div>
+      `);
+
+      marker.bindTooltip(building.name, {
+        permanent: true,
+        direction: 'top',
+        className: 'building-label'
+      });
+
+      marker.on('click', () => {
+        selectBuilding(building.name);
+      });
+
+      const option = document.createElement('option');
+      option.value = building.name;
+      option.textContent = building.name;
+      buildingSelect.appendChild(option);
+    });
+
+    function selectBuilding(selectedName) {
+      const building = buildings.find(b => b.name === selectedName);
+      if (!building) return;
+
+      buildingSelect.value = selectedName;
+      infoTitle.textContent = `${building.icon} ${building.name}`;
+      infoDescription.textContent = building.description;
+      buildingInfo.style.display = 'block';
+
+      previewImage.src = building.image;
+      previewImage.style.display = 'block';
+      previewPlaceholder.style.display = 'none';
+
+      const marker = markers[selectedName];
+      map.setView(marker.getLatLng(), 18, { animate: true });
+      marker.openPopup();
+    }
+
+    buildingSelect.addEventListener('change', function () {
+      const selectedName = this.value;
+
+      if (!selectedName) {
+        buildingInfo.style.display = 'none';
+        previewImage.style.display = 'none';
+        previewPlaceholder.style.display = 'block';
+        return;
+      }
+
+      selectBuilding(selectedName);
+    });
+</script>
+</body>
+</html>

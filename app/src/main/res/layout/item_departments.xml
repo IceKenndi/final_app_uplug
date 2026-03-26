@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/departmentCard"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:layout_margin="6dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#DCE5DE"
+    app:cardBackgroundColor="#FDFEFC">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frontFace"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+
+            <!-- Centered content group -->
+            <LinearLayout
+                android:id="@+id/frontContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/departmentIcon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_profile"
+                    android:layout_marginBottom="10dp"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/tv_departmentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CITE"
+                    android:textColor="#1E241F"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/segoeui_bold"
+                    tools:text="CITE" />
+            </LinearLayout>
+
+            <!-- Check -->
+            <ImageView
+                android:id="@+id/checkIcon"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_check_circle"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="visible"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- BACK -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/backFace"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/backBgLogo"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:alpha="0.12"
+                android:scaleType="fitCenter"
+                android:translationX="-65dp"
+                android:translationY="65dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:id="@+id/backContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/backLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selected"
+                    android:textColor="#1F6A4E"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/segoeui_bold" />
+
+                <TextView
+                    android:id="@+id/tv_departmentFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="#1E241F"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/segoeui_bold"
+                    tools:text="College of Information Technology Education" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/backCheckBadge"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_check_circle"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</com.google.android.material.card.MaterialCardView>

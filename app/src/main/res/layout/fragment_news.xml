@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F7F8F5">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:paddingStart="16dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp"
+        android:gravity="center_vertical"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="News"
+            android:textColor="#1E241F"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/segoeui_bold" />
+    </LinearLayout>
+
+    <!-- Filters -->
+    <LinearLayout
+        android:id="@+id/filterContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/filterOfficial"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:minWidth="76dp"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Official"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/segoeui_bold"
+            android:background="@drawable/filter_chip_selected" />
+
+        <TextView
+            android:id="@+id/filterDepartment"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:minWidth="98dp"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Department"
+            android:textColor="#445046"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/segoeui_bold"
+            android:background="@drawable/filter_chip_unselected" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/btnCreatePost"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Create"
+            android:textColor="#1F5A43"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/segoeui_bold"
+            android:background="@drawable/filter_chip_unselected" />
+    </LinearLayout>
+
+    <!-- Create Post Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/createPostCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E7EAE3"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/filterContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create New Post"
+                android:textColor="#1E241F"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/segoeui_bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Share an update to the selected wall"
+                android:textColor="#7A8377"
+                android:textSize="13sp"
+                android:fontFamily="@font/segoeui_regular" />
+
+            <!-- Wall Selection -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wall"
+                    android:textColor="#2E342F"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/segoeui_bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/btnWallOfficial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="Official"
+                    android:textColor="#445046"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/segoeui_bold"
+                    android:background="@drawable/filter_chip_unselected" />
+
+                <TextView
+                    android:id="@+id/btnWallDepartment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="Department"
+                    android:textColor="#445046"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/segoeui_bold"
+                    android:background="@drawable/filter_chip_unselected" />
+            </LinearLayout>
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Title"
+                android:textColor="#2E342F"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/segoeui_bold" />
+
+            <EditText
+                android:id="@+id/inputPostTitle"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/search_bar"
+                android:hint="Post title"
+                android:textColorHint="#8A8F87"
+                android:inputType="text"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:textColor="#1F241F"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/segoeui_bold" />
+
+            <!-- Content -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="Content"
+                android:textColor="#2E342F"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/segoeui_bold" />
+
+            <EditText
+                android:id="@+id/inputPostContent"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/search_bar"
+                android:gravity="top"
+                android:hint="Write something..."
+                android:textColorHint="#8A8F87"
+                android:inputType="textMultiLine"
+                android:paddingStart="14dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="12dp"
+                android:scrollbars="vertical"
+                android:textColor="#1F241F"
+                android:textSize="14sp"
+                android:fontFamily="@font/segoeui_regular" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmitPost"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="18dp"
+                android:text="Post"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/segoeui_bold"
+                android:backgroundTint="#1F4D3B"
+                app:cornerRadius="16dp"
+                app:elevation="0dp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Feed -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/filterContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/newsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/newsSkeleton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="118dp"
+                    android:background="@drawable/skeleton_block_rounded" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="118dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/skeleton_block_rounded" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="118dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/skeleton_block_rounded" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/emptyStateContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:visibility="gone">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    app:cardBackgroundColor="#F1F3EE"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#E7EAE3"
+                    app:strokeWidth="0dp">
+
+                    <TextView
+                        android:id="@+id/emptyStateText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="24dp"
+                        android:text="No posts found yet"
+                        android:textColor="#6D766B"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/segoeui_bold" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+        </FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

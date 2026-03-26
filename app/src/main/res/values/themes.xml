@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.Register_firebase" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorSecondaryContainer">#DDEDE4</item>
+        <item name="colorOnSecondaryContainer">#1F5A43</item>
+        <item name="android:navigationBarColor">#EEF1EC</item>
+        <item name="android:statusBarColor">#EEF1EC</item>
+    </style>
+
+    <style name="Theme.Register_firebase" parent="Base.Theme.Register_firebase" />
+
+    <style name="Theme.Uplug.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#1F4D3B</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/test</item>
+        <item name="postSplashScreenTheme">@style/Theme.Register_firebase</item>
+    </style>
+
+</resources>

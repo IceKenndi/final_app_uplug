@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "697964181624",
+    "project_id": "posting-proto",
+    "storage_bucket": "posting-proto.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697964181624:android:af55b2407988285097958d",
+        "android_client_info": {
+          "package_name": "com.phinmaed.uplug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697964181624-is3dmdfrjmoi2m7ao3d9q8cv694pf4h1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.phinmaed.uplug",
+            "certificate_hash": "15d9b2f2f5f649a21d83773629238215fbd41a00"
+          }
+        },
+        {
+          "client_id": "697964181624-v5l4ccmau8n92i9c9fa357h4lfne5kij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.phinmaed.uplug",
+            "certificate_hash": "9dfb75b4e87a5a590104f0132a6e9bc766c2cb27"
+          }
+        },
+        {
+          "client_id": "697964181624-b32s1ghm20s76msc7iq5e6e1elp570fq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOwLvP_vJ34AJGfsvgFbo2j3i8qXqN-xc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697964181624-b32s1ghm20s76msc7iq5e6e1elp570fq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

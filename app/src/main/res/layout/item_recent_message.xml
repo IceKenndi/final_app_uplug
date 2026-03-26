@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/messageAvatar"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@drawable/circle_mask"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/messageName"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="User"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/messagePreview"
+            android:textSize="13sp"
+            android:textColor="#666"
+            android:text="Last message"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CircleImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="NavIndicator">
+        <item name="android:color">#DCE5D3</item>
+        <item name="android:width">48dp</item>
+        <item name="android:height">4dp</item>
+        <item name="shapeAppearance">@style/NavIndicatorShape</item>
+    </style>
+
+    <style name="NavIndicatorShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">3dp</item>
+    </style>
+
+    <style name="BottomNavActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#E7F3EC</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.BottomNav.Indicator</item>
+    </style>
+
+    <style name="ShapeAppearance.BottomNav.Indicator" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="BottomNavText" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/segoeui_bold</item>
+    </style>
+</resources>
